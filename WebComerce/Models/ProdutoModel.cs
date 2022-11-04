@@ -1,3 +1,5 @@
+using WebComerce.Models.Enums;
+
 namespace WebComerce.Models;
 
 public class ProdutoModel
@@ -10,5 +12,5 @@ public class ProdutoModel
     
     public double valor { get; set; }
     
-    public int possuiEstoque { get; set; }
+    public Estoque possuiEstoque { get; set; }
 }

@@ -11,6 +11,9 @@ public class UserDBContext : DbContext
     }
 
     public DbSet<UserModel> Usuarios { get; set; }
+    public DbSet<ProdutoModel> Produtos { get; set; }
+    
+    public  DbSet<ProdutoEscolhidoModel> ProdutoEscolhido { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -18,6 +21,20 @@ public class UserDBContext : DbContext
             .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<UserModel>(entity =>
+        {
+            entity.Property(e => e.id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
+            
+        });
+        modelBuilder.Entity<ProdutoModel>(entity =>
+        {
+            entity.Property(e => e.id)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("id");
+            
+        });
+        modelBuilder.Entity<ProdutoEscolhidoModel>(entity =>
         {
             entity.Property(e => e.id)
                 .ValueGeneratedOnAdd()

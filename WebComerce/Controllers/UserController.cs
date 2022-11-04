@@ -40,6 +40,21 @@ namespace WebComerce.Controllers
             UserModel user = await _userRepositorio.Adicionar(usuario);
             return Ok(user);
         }
-            
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserModel>> Atualizar([FromBody] UserModel userModel, int id)
+        {
+            userModel.id = id;
+            UserModel usuario = await _userRepositorio.Atualizar(userModel, id);
+            return Ok(usuario);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<UserModel>> Apagar(int id)
+        {
+            bool apagado = await _userRepositorio.Apagar(id);
+            return Ok(apagado);
+        }
+
     }
 }

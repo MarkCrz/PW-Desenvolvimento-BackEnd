@@ -5,14 +5,15 @@ using WebComerce.Repositorios.Interfaces;
 
 namespace WebComerce.Repositorios;
 
-public class UserRepositorio :IUserRepositorio
+public class UserRepositorio : IUserRepositorio
 {
     private readonly UserDBContext _dbContext;
+
     public UserRepositorio(UserDBContext userDbContext)
     {
         _dbContext = userDbContext;
     }
-    
+
     public async Task<List<UserModel>> BuscarTodosUsuarios()
     {
         return await _dbContext.Usuarios.ToListAsync();
