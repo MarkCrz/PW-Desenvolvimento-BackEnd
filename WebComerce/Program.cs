@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using WebComerce.Data;
 using WebComerce.Repositorios;
 using WebComerce.Repositorios.Interfaces;
@@ -14,11 +15,16 @@ var connectionString = builder.Configuration.GetConnectionString("DataBase");
 builder.Services.AddDbContextPool<UserDBContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
 builder.Services.AddScoped<IProdutosRepositorio, ProdutosRepositorio>();
 builder.Services.AddScoped<IUserRepositorio, UserRepositorio>();
 builder.Services.AddScoped<IProdutoEscolhidoRepositorio, ProdutoEscolhidoRepositorio>();
 
 var app = builder.Build();
+app.UseSwaggerUI();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -31,7 +37,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-
+app.UseSwagger(x => x.SerializeAsV2 = true);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");

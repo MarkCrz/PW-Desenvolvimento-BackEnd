@@ -10,7 +10,8 @@ public class UserMap : IEntityTypeConfiguration<UserModel>
     {
         builder.HasKey(x => x.id);
         builder.Property(x => x.Username).IsRequired().HasMaxLength(60);
-        builder.Property(x => x.password).IsRequired().HasMaxLength(60);
+        builder.Property(x => x.PasswordSalt).IsRequired().HasMaxLength(60);
+        builder.Property(x => x.PasswordHash).IsRequired().HasMaxLength(60);
         builder.Property(x => x.admin).IsRequired();
     }
 }

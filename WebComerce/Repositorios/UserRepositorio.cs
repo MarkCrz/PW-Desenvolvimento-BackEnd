@@ -41,7 +41,8 @@ public class UserRepositorio : IUserRepositorio
         }
 
         usuarioPorId.Username = usuario.Username;
-        usuarioPorId.password = usuario.password;
+        usuarioPorId.PasswordHash = usuario.PasswordHash;
+        usuarioPorId.PasswordSalt = usuario.PasswordSalt;
         usuarioPorId.admin = usuario.admin;
 
         _dbContext.Usuarios.Update(usuarioPorId);
