@@ -56,6 +56,14 @@ namespace WebComerce.Controllers
         public async Task<ActionResult<ProdutoEscolhidoModel>> Atualizar([FromBody] ProdutoEscolhidoModel produtoEscolhidoModel, int id)
         {
             produtoEscolhidoModel.id = id;
+            ProdutoModel produtoAtualizado = await _produtosRepositorio.BuscarPorIdProdutos(produtoEscolhidoModel.produtoId);
+            produtoAtualizado.quantidade = produtoAtualizado.quantidade - produtoEscolhidoModel.quantidade;
+            if (produtoAtualizado.quantidade == 0)
+            {
+                produtoAtualizado.possuiEstoque = Estoque.Vazio;
+            }
+            
+            await _produtosRepositorio.AtualizarProdutos(produtoAtualizado, produtoAtualizado.id);
             ProdutoEscolhidoModel produtoEscolhido = await _produtoEscolhidoRepositorio.AtualizarProdutoEscolhido(produtoEscolhidoModel, id);
             return Ok(produtoEscolhido);
         }
